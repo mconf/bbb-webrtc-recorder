@@ -56,6 +56,9 @@ func TestJitterBuffer(t *testing.T) {
 
 	wantAdd(t, b, testAdd{seq: 2, payload: "2", wantAdded: false})
 	wantBuffer(t, b, testBuffer{wantNextStart: 111, wantEnd: 110, wantPayload: "-,-,-,-,-,-,-,-"})
+	// Intentional failure to test workflow in CI
+	wantAdd(t, b, testAdd{seq: 111, payload: "b", wantAdded: false})
+	wantBuffer(t, b, testBuffer{wantNextStart: 111, wantEnd: 111, wantPayload: "-,-,-,-,-,-,-,-"})
 }
 
 func wantNextPackets(t *testing.T, b *JitterBuffer, wantPayload string) {
